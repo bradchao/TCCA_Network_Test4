@@ -22,7 +22,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     private RequestQueue queue;
     private TextView lotto;
-    private EditText account, passwd;
+    private EditText account, passwd, realname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +32,23 @@ public class MainActivity extends AppCompatActivity {
         lotto = findViewById(R.id.lottoView);
         account = findViewById(R.id.account);
         passwd = findViewById(R.id.passwd);
+        realname = findViewById(R.id.realname);
         queue = Volley.newRequestQueue(this);
     }
 
     public void createLotto(View view) {
         StringRequest request = new StringRequest(
                 Request.Method.POST,
-                "http://10.0.100.124/brad02.php",
+                "http://10.0.100.124/brad03.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.v("bradlog", response);
-                        lotto.setText(response);
+                        if (response.equals("OK")) {
+                            lotto.setText("註冊成功");
+                        }else{
+                            lotto.setText("註冊失敗");
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -58,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 HashMap<String,String> map = new HashMap<>();
                 map.put("account", account.getText().toString());
                 map.put("passwd", passwd.getText().toString());
+                map.put("realname", realname.getText().toString());
                 return map;
             }
         };
