@@ -33,6 +33,11 @@ public class LoginActivity extends AppCompatActivity {
         mainApp = (MainApp)getApplication();
         account = findViewById(R.id.login_account);
         passwd = findViewById(R.id.login_passwd);
+
+        String tmpAccount = mainApp.sp.getString("account","");
+        String tmpPasswd = mainApp.sp.getString("passwd", "");
+        account.setText(tmpAccount);
+        passwd.setText(tmpPasswd);
     }
 
     public void register(View view) {
@@ -74,6 +79,10 @@ public class LoginActivity extends AppCompatActivity {
             JSONObject root = new JSONObject(json);
             String login = root.getString("login");
             if (login.equals("OK")){
+                mainApp.editor.putString("account", root.getString("account"));
+                mainApp.editor.putString("passwd", root.getString("passwd"));
+                mainApp.editor.putString("realname", root.getString("realname"));
+                mainApp.editor.commit();
                 gotoHome();
             }else{
                 showErrorDialog();
