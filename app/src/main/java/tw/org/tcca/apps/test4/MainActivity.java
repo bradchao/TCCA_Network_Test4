@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -15,11 +16,14 @@ import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends AppCompatActivity {
     private RequestQueue queue;
+    private TextView lotto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        lotto = findViewById(R.id.lottoView);
         queue = Volley.newRequestQueue(this);
     }
 
@@ -31,12 +35,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.v("bradlog", response);
+                        lotto.setText(response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Log.v("bradlog", error.toString());
                     }
                 }
         );
