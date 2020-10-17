@@ -12,5 +12,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Home"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000"
+        />
+    <TextView
+        android:id="@+id/who"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:onClick="logout"
         />
 </LinearLayout>
