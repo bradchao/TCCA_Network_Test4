@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private RequestQueue queue;
+    private MainApp mainApp;
     private TextView lotto;
     private EditText account, passwd, realname;
 
@@ -29,11 +29,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mainApp = (MainApp)getApplication();
         lotto = findViewById(R.id.lottoView);
         account = findViewById(R.id.account);
         passwd = findViewById(R.id.passwd);
         realname = findViewById(R.id.realname);
-        queue = Volley.newRequestQueue(this);
+
     }
 
     public void createLotto(View view) {
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.v("bradlog", response);
                         if (response.equals("OK")) {
                             lotto.setText("註冊成功");
+                            success();
                         }else{
                             lotto.setText("註冊失敗");
                         }
@@ -67,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
                 return map;
             }
         };
-        queue.add(request);
+        mainApp.queue.add(request);
+    }
+
+    private void success(){
+        finish();
     }
 }
