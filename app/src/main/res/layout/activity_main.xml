@@ -8,6 +8,20 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Input Account"
+        />
+    <EditText
+        android:id="@+id/passwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:password="true"
+        android:inputType="number"
+        android:hint="Input Password"
+        />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 public class MainActivity extends AppCompatActivity {
     private RequestQueue queue;
     private TextView lotto;
+    private EditText account, passwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +26,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         lotto = findViewById(R.id.lottoView);
+        account = findViewById(R.id.account);
+        passwd = findViewById(R.id.passwd);
         queue = Volley.newRequestQueue(this);
     }
 
     public void createLotto(View view) {
         StringRequest request = new StringRequest(
                 Request.Method.GET,
-                "http://10.0.100.124/brad02.php",
+                "http://10.0.100.124/brad02.php?account=" + account.getText().toString() +
+                    "&passwd=" + passwd.getText().toString(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
