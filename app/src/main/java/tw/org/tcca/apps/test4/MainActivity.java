@@ -8,12 +8,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private RequestQueue queue;
@@ -33,9 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void createLotto(View view) {
         StringRequest request = new StringRequest(
-                Request.Method.GET,
-                "http://10.0.100.124/brad02.php?account=" + account.getText().toString() +
-                    "&passwd=" + passwd.getText().toString(),
+                Request.Method.POST,
+                "http://10.0.100.124/brad02.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -49,7 +52,15 @@ public class MainActivity extends AppCompatActivity {
                         Log.v("bradlog", error.toString());
                     }
                 }
-        );
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> map = new HashMap<>();
+                map.put("account", account.getText().toString());
+                map.put("passwd", passwd.getText().toString());
+                return map;
+            }
+        };
         queue.add(request);
     }
 }
